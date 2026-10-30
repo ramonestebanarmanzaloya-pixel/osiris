@@ -43,9 +43,14 @@ import { fetchNevadaCameras } from './nevada';
 import { fetchLouisianaCameras } from './louisiana';
 import { fetchFloridaCameras } from './florida';
 import { fetchGeorgiaCameras } from './georgia';
+import { fetchSouthCarolinaCameras } from './southcarolina';
 import { fetchNorthCarolinaCameras } from './northcarolina';
 import { fetchArizonaCameras } from './arizona';
+import { fetchIdahoCameras } from './idaho';
+import { fetchMarylandCameras } from './maryland';
 import { fetchTexasCameras } from './texas';
+import { fetchDelawareCameras } from './delaware';
+import { fetchVirginiaCameras } from './virginia';
 import { fetchEastAsiaCameras, fetchSeAsiaCameras, fetchWestAsiaCameras } from './opencctv';
 import {
   fetchLatamLiveCameras,
@@ -476,9 +481,14 @@ const RAW_REGION_FETCHERS: Record<string, RegionFetcher> = {
   'louisiana': fetchLouisianaCameras,
   'florida': fetchFloridaCameras,
   'georgia': fetchGeorgiaCameras,
+  'southcarolina': fetchSouthCarolinaCameras,
   'northcarolina': fetchNorthCarolinaCameras,
   'arizona': fetchArizonaCameras,
+  'idaho': fetchIdahoCameras,
+  'maryland': fetchMarylandCameras,
   'texas': fetchTexasCameras,
+  'delaware': fetchDelawareCameras,
+  'virginia': fetchVirginiaCameras,
   'eastasia': fetchEastAsiaCameras,
   'seasia': fetchSeAsiaCameras,
   'westasia': fetchWestAsiaCameras,
@@ -777,6 +787,8 @@ function getRegionsForBounds(lat: number, lng: number, radius: number): string[]
   if (lat > 41.9 && lat < 46.3 && lng > -124.6 && lng < -116.4) regions.push('oregon');
   // Nevada (NDOT) — explicit, since us-west only covers WA + CA
   if (lat > 34.9 && lat < 42.1 && lng > -120.1 && lng < -113.9) regions.push('nevada');
+  // Idaho (ITD 511) — explicit, since us-west only covers WA + CA
+  if (lat > 41.9 && lat < 49.1 && lng > -117.3 && lng < -111.0) regions.push('idaho');
   // Texas (TxDOT), including El Paso west of the central region.
   if (lat > 25.8 && lat < 36.6 && lng > -106.7 && lng < -93.4) regions.push('texas');
   // US-Central
@@ -792,8 +804,16 @@ function getRegionsForBounds(lat: number, lng: number, radius: number): string[]
      us-central boxes cover the latitudes but carry none of these agencies. */
   if (lat > 24.4 && lat < 31.1 && lng > -87.7 && lng < -79.9) regions.push('florida');
   if (lat > 30.3 && lat < 35.1 && lng > -85.7 && lng < -80.8) regions.push('georgia');
+  // South Carolina (SCDOT 511) — an Iteris build rather than IBI, but listed here with its neighbours
+  if (lat > 31.9 && lat < 35.3 && lng > -83.5 && lng < -78.4) regions.push('southcarolina');
   if (lat > 33.8 && lat < 36.6 && lng > -84.4 && lng < -75.4) regions.push('northcarolina');
+  // Delaware (DelDOT) — explicit, since us-east covers the latitudes but carries none of its cameras
+  if (lat > 38.4 && lat < 39.9 && lng > -75.85 && lng < -74.95) regions.push('delaware');
+  // Virginia (VDOT 511) — explicit for the same reason as Delaware
+  if (lat > 36.4 && lat < 39.6 && lng > -83.8 && lng < -75.1) regions.push('virginia');
   if (lat > 31.3 && lat < 37.1 && lng > -115.0 && lng < -109.0) regions.push('arizona');
+  // Maryland (MDOT SHA CHART) — explicit, since us-east covers the latitudes but carries none of its cameras
+  if (lat > 37.85 && lat < 39.8 && lng > -79.55 && lng < -74.95) regions.push('maryland');
   // Canada
   if (lat > 42 && lat < 70 && lng > -141 && lng < -52) regions.push('canada');
   if (lat > 53.3 && lat < 53.8 && lng > -114.0 && lng < -113.2) regions.push('edmonton');
