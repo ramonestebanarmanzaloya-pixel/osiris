@@ -1,5 +1,16 @@
 'use client';
 
+// FIX: Tipos GeoJSON para que no falle el build
+declare namespace GeoJSON {
+  type Feature<G = any, P = any> = any;
+  type Point = any;
+  type LineString = any;
+  type Polygon = any;
+  type FeatureCollection = any;
+  type Geometry = any;
+}
+
+
 import { buildGeometry, closeRing, drawReducer, initialDrawState, measure, type DrawAction, type DrawMode, type DrawProgress, type DrawResult, type DrawState } from '@/lib/draw';
 import { useEffect, useRef, useState, useCallback, memo } from 'react';
 import * as maplibregl from 'maplibre-gl';
