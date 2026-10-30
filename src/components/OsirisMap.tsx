@@ -2,7 +2,7 @@
 // @ts-nocheck
 // FIX: Tipos GeoJSON para que no falle el build
 declare namespace GeoJSON {
-  type Feature = any;
+  type Feature<G = any, P = any> = any;
   type Point = any;
   type LineString = any;
   type Polygon = any;
