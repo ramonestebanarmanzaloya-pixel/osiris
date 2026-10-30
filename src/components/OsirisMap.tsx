@@ -7,7 +7,7 @@ declare namespace GeoJSON {
   type LineString = any;
   type Polygon = any;
   type FeatureCollection = any;
-  type Geometry = any
+  type Geometry = any;
 }
 
   
